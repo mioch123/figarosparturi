@@ -1,0 +1,1434 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Figaro's Parturi — Turku</title>
+  <meta name="description" content="Figaro's Parturi Turussa — perinteinen parturitaito modernilla otteella. Hiusleikkaus, parranmuotoilu ja parranajo. Varaa aikasi nyt.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:     #080808;
+      --dark:      #111111;
+      --darker:    #0D0D0D;
+      --card:      #141414;
+      --red:       #C87941;
+      --red-dark:  #A5612E;
+      --gold:      #5B4A8A;
+      --white:     #FFFFFF;
+      --off-white: #F0E8DE;
+      --gray:      #9A9189;
+      --border:    rgba(255,255,255,0.08);
+      --heading:   'Oswald', sans-serif;
+      --body:      'DM Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--body);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ─── NAV ─────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      height: 72px;
+      padding: 0 5%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.35s, backdrop-filter 0.35s, border-color 0.35s;
+      border-bottom: 1px solid transparent;
+    }
+    nav.scrolled {
+      background: rgba(8,8,8,0.94);
+      backdrop-filter: blur(22px);
+      border-bottom-color: var(--border);
+    }
+
+    .nav-logo {
+      font-family: var(--heading);
+      font-size: 1.55rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--white);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--red); }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--gray);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--white); }
+
+    .nav-cta {
+      background: var(--red);
+      color: var(--white);
+      padding: 10px 22px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .nav-cta:hover { background: var(--red-dark); }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--white);
+      transition: all 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile menu */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: var(--black);
+      z-index: 190;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2.5rem;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-family: var(--heading);
+      font-size: 2.2rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: var(--white);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .mobile-menu a:hover { color: var(--red); }
+    .mobile-menu .nav-cta {
+      font-size: 0.85rem;
+      padding: 14px 32px;
+      margin-top: 1rem;
+    }
+
+    /* ─── HERO ────────────────────────────────────────── */
+    #hero {
+      position: relative;
+      min-height: 600px;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        url('figaro logo.jpeg') center/contain no-repeat;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 5%;
+      max-width: 680px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 3.5px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.8rem;
+    }
+    .hero-badge::before {
+      content: '';
+      display: block;
+      width: 38px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    .hero-title {
+      font-family: var(--heading);
+      font-size: clamp(2rem, 5vw, 3.8rem);
+      font-weight: 700;
+      line-height: 0.92;
+      text-transform: uppercase;
+      letter-spacing: -1px;
+      margin-bottom: 1.5rem;
+    }
+    .hero-title em {
+      font-style: normal;
+      color: var(--red);
+    }
+
+    .hero-sub {
+      font-size: 1rem;
+      font-weight: 300;
+      color: var(--gray);
+      max-width: 400px;
+      margin-bottom: 2.5rem;
+      line-height: 1.75;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--red);
+      color: var(--white);
+      padding: 15px 34px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-primary:hover { background: var(--red-dark); transform: translateY(-1px); }
+
+    .btn-ghost {
+      color: var(--white);
+      padding: 15px 34px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      text-decoration: none;
+      display: inline-block;
+      border: 1px solid rgba(255,255,255,0.28);
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--white); background: rgba(255,255,255,0.06); }
+
+    .hero-stats {
+      display: flex;
+      gap: 3rem;
+      margin-top: 3rem;
+    }
+    .stat-number {
+      font-family: var(--heading);
+      font-size: 2.4rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.65rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-top: 4px;
+    }
+
+    /* ─── TICKER ──────────────────────────────────────── */
+    .ticker {
+      background: var(--red);
+      padding: 14px 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .ticker-track {
+      display: inline-flex;
+      animation: ticker 22s linear infinite;
+    }
+    .ticker-track:hover { animation-play-state: paused; }
+    .ticker-item {
+      font-family: var(--heading);
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 3.5px;
+      text-transform: uppercase;
+      padding: 0 2.5rem;
+    }
+    .ticker-dot { color: rgba(255,255,255,0.45); }
+    @keyframes ticker {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ─── SECTION SHARED ──────────────────────────────── */
+    section { padding: 110px 5%; }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 1rem;
+    }
+    .section-label::before {
+      content: '';
+      width: 28px;
+      height: 1px;
+      background: var(--red);
+    }
+
+    .section-title {
+      font-family: var(--heading);
+      font-size: clamp(2.6rem, 5vw, 4.2rem);
+      font-weight: 700;
+      text-transform: uppercase;
+      line-height: 1.0;
+      letter-spacing: -0.5px;
+    }
+
+    /* ─── ABOUT ───────────────────────────────────────── */
+    #about {
+      background: var(--dark);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+    }
+
+    .about-img-wrap {
+      position: relative;
+    }
+    .about-img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      display: block;
+      position: relative;
+      z-index: 1;
+    }
+    .about-red-block {
+      position: absolute;
+      bottom: -1.8rem;
+      right: -1.8rem;
+      width: 55%;
+      aspect-ratio: 1;
+      background: var(--red);
+      z-index: 0;
+    }
+    .about-years-badge {
+      position: absolute;
+      top: 2rem;
+      left: -2rem;
+      background: var(--black);
+      border: 1px solid var(--border);
+      padding: 1.2rem 1.5rem;
+      text-align: center;
+      z-index: 2;
+    }
+    .badge-num {
+      font-family: var(--heading);
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: var(--red);
+      line-height: 1;
+    }
+    .badge-label {
+      font-size: 0.62rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-top: 4px;
+    }
+
+    .about-body {
+      color: var(--gray);
+      font-size: 1rem;
+      line-height: 1.8;
+      margin: 1.5rem 0;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+      margin-top: 2rem;
+    }
+    .feature {
+      background: var(--dark);
+      padding: 1.1rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .feature-ico {
+      width: 34px;
+      height: 34px;
+      background: rgba(200,121,65,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 0.95rem;
+    }
+    .feature-name {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .feature-desc {
+      font-size: 0.72rem;
+      color: var(--gray);
+      margin-top: 2px;
+    }
+
+    /* ─── SERVICES ────────────────────────────────────── */
+    #services { background: var(--black); }
+
+    .services-top {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 3.5rem;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+    }
+
+    .service-card {
+      background: var(--darker);
+      padding: 2.5rem 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--red);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.35s ease;
+    }
+    .service-card:hover { background: var(--card); }
+    .service-card:hover::before { transform: scaleX(1); }
+
+    .svc-icon { font-size: 1.9rem; margin-bottom: 1.2rem; display: block; }
+    .svc-name {
+      font-family: var(--heading);
+      font-size: 1.35rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 0.6rem;
+    }
+    .svc-desc {
+      font-size: 0.83rem;
+      color: var(--gray);
+      line-height: 1.65;
+      margin-bottom: 1.5rem;
+    }
+    .svc-price {
+      font-family: var(--heading);
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--red);
+    }
+    .svc-duration {
+      font-size: 0.68rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-top: 4px;
+    }
+
+    /* ─── GALLERY ─────────────────────────────────────── */
+    #gallery {
+      background: var(--dark);
+      padding-bottom: 0;
+    }
+    .gallery-head { margin-bottom: 2.8rem; }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: 280px 280px;
+      gap: 4px;
+    }
+    .gallery-item {
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      background: #1a1a1a;
+    }
+    .gallery-item:first-child {
+      grid-column: span 2;
+      grid-row: span 2;
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.55s ease, filter 0.3s;
+      filter: brightness(0.82) saturate(0.85);
+    }
+    .gallery-item:hover img {
+      transform: scale(1.07);
+      filter: brightness(1) saturate(1);
+    }
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(200,121,65,0.6);
+      opacity: 0;
+      transition: opacity 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      color: white;
+      font-weight: 300;
+    }
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+
+    /* ─── BOOKING ─────────────────────────────────────── */
+    #booking { background: var(--black); }
+
+    .booking-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: start;
+    }
+
+    .booking-body {
+      color: var(--gray);
+      font-size: 1rem;
+      line-height: 1.8;
+      margin: 1.5rem 0 2.5rem;
+    }
+
+    .hours-label {
+      font-size: 0.65rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-bottom: 0.8rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+    .hours-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.88rem;
+    }
+    .hours-day { color: var(--off-white); }
+    .hours-time { color: var(--gray); }
+    .hours-closed { color: var(--red); }
+
+    .booking-contact {
+      margin-top: 1.8rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+    .booking-contact p {
+      font-size: 0.88rem;
+      color: var(--gray);
+      margin-bottom: 6px;
+    }
+    .booking-contact a { color: var(--red); text-decoration: none; }
+    .booking-contact a:hover { text-decoration: underline; }
+
+    /* Form */
+    .form-box {
+      background: var(--dark);
+      border: 1px solid var(--border);
+      padding: 2.5rem;
+    }
+    .form-title {
+      font-family: var(--heading);
+      font-size: 1.45rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 1.5rem;
+    }
+    .form-group { margin-bottom: 1.1rem; }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .form-label {
+      display: block;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-bottom: 6px;
+    }
+    .form-input,
+    .form-select,
+    .form-textarea {
+      width: 100%;
+      background: var(--black);
+      border: 1px solid var(--border);
+      color: var(--white);
+      padding: 11px 14px;
+      font-family: var(--body);
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s;
+      -webkit-appearance: none;
+    }
+    .form-input::placeholder,
+    .form-textarea::placeholder { color: rgba(154,145,137,0.5); }
+    .form-input:focus,
+    .form-select:focus,
+    .form-textarea:focus { border-color: var(--red); }
+    .form-select {
+      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7' viewBox='0 0 12 7'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239A9189' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 38px;
+    }
+    .form-select option { background: #1a1a1a; }
+    .form-textarea { resize: vertical; min-height: 80px; }
+    .form-submit {
+      width: 100%;
+      background: var(--red);
+      color: var(--white);
+      border: none;
+      padding: 15px;
+      font-family: var(--body);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      margin-top: 0.5rem;
+      transition: background 0.2s;
+    }
+    .form-submit:hover { background: var(--red-dark); }
+
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 2.5rem 0;
+    }
+    .form-success-check {
+      font-size: 3rem;
+      line-height: 1;
+      margin-bottom: 0.8rem;
+      color: var(--red);
+    }
+    .form-success-title {
+      font-family: var(--heading);
+      font-size: 1.4rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .form-success-sub {
+      font-size: 0.9rem;
+      color: var(--gray);
+      margin-top: 0.5rem;
+    }
+
+    /* ─── TESTIMONIALS ────────────────────────────────── */
+    #testimonials { background: var(--dark); }
+
+    .testimonials-head {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+    .testimonials-head .section-label { justify-content: center; }
+    .testimonials-head .section-label::before { display: none; }
+
+    .testi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .testi-card {
+      background: var(--black);
+      border: 1px solid var(--border);
+      padding: 2rem;
+      position: relative;
+    }
+    .testi-quote-mark {
+      position: absolute;
+      top: 1.2rem;
+      right: 1.8rem;
+      font-family: var(--heading);
+      font-size: 5rem;
+      line-height: 1;
+      color: rgba(200,121,65,0.12);
+      pointer-events: none;
+    }
+    .testi-stars {
+      color: var(--gold);
+      letter-spacing: 2px;
+      font-size: 0.85rem;
+      margin-bottom: 1rem;
+    }
+    .testi-text {
+      font-size: 0.93rem;
+      color: var(--off-white);
+      line-height: 1.7;
+      font-style: italic;
+      margin-bottom: 1.5rem;
+    }
+    .testi-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .author-av {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--red);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--heading);
+      font-size: 0.95rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .author-name { font-weight: 600; font-size: 0.9rem; }
+    .author-meta { font-size: 0.73rem; color: var(--gray); margin-top: 1px; }
+
+    .testi-cta {
+      text-align: center;
+      margin-top: 2.5rem;
+    }
+
+    /* ─── CTA BANNER ──────────────────────────────────── */
+    .cta-banner {
+      background: var(--red);
+      padding: 6rem 5%;
+      text-align: center;
+    }
+    .cta-banner h2 {
+      font-family: var(--heading);
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: -0.5px;
+      margin-bottom: 1rem;
+    }
+    .cta-banner p {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.82);
+      margin-bottom: 2rem;
+    }
+    .btn-white {
+      background: var(--white);
+      color: var(--red);
+      padding: 15px 38px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.2s;
+    }
+    .btn-white:hover { background: var(--off-white); }
+
+    /* ─── FOOTER ──────────────────────────────────────── */
+    footer {
+      background: var(--darker);
+      border-top: 1px solid var(--border);
+      padding: 5rem 5% 2rem;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+
+    .footer-logo {
+      font-family: var(--heading);
+      font-size: 1.55rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .footer-logo span { color: var(--red); }
+    .footer-tagline {
+      font-size: 0.85rem;
+      color: var(--gray);
+      line-height: 1.65;
+      margin-bottom: 1.5rem;
+      max-width: 280px;
+    }
+    .social-links { display: flex; gap: 10px; }
+    .social-link {
+      width: 36px;
+      height: 36px;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gray);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 700;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+    }
+    .social-link:hover {
+      border-color: var(--red);
+      background: var(--red);
+      color: var(--white);
+    }
+
+    .footer-col h4 {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 1.2rem;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 0.55rem; }
+    .footer-col a {
+      font-size: 0.88rem;
+      color: var(--gray);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-col a:hover { color: var(--white); }
+    .footer-col p {
+      font-size: 0.88rem;
+      color: var(--gray);
+      line-height: 1.7;
+      margin-bottom: 0.4rem;
+    }
+    .footer-col p a { color: var(--red); text-decoration: none; }
+    .footer-col p a:hover { text-decoration: underline; }
+
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      padding-top: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+    .footer-copy { font-size: 0.78rem; color: var(--gray); }
+    .footer-credit { font-size: 0.78rem; color: var(--gray); }
+    .footer-credit a { color: var(--red); text-decoration: none; }
+
+    /* ─── REVEAL ANIMATIONS ───────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.08s; }
+    .reveal-delay-2 { transition-delay: 0.16s; }
+    .reveal-delay-3 { transition-delay: 0.24s; }
+
+    /* ─── RESPONSIVE ──────────────────────────────────── */
+    @media (max-width: 1100px) {
+      #about { grid-template-columns: 1fr; gap: 3rem; }
+      .about-img-wrap { max-width: 480px; }
+      .booking-wrap { grid-template-columns: 1fr; gap: 3.5rem; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 900px) {
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+      .testi-grid { grid-template-columns: 1fr; }
+      .gallery-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 220px 220px 220px;
+      }
+      .gallery-item:first-child { grid-column: span 2; grid-row: span 1; }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+      section { padding: 80px 5%; }
+      .hero-stats { gap: 2rem; }
+      .hero-stats .stat-number { font-size: 2rem; }
+      .services-grid { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
+      .gallery-item { height: 240px; }
+      .gallery-item:first-child { grid-column: span 1; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+      .services-top { flex-direction: column; align-items: flex-start; }
+      .form-row { grid-template-columns: 1fr; }
+      .features-grid { grid-template-columns: 1fr; }
+      .about-years-badge { left: 0; top: auto; bottom: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ─────────────────────────────────────────────────── -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">FIGARO<span>'S</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">Meistä</a></li>
+    <li><a href="#services">Palvelut</a></li>
+    <li><a href="#gallery">Galleria</a></li>
+    <li><a href="#testimonials">Arvostelut</a></li>
+    <li><a href="#booking">Yhteystiedot</a></li>
+  </ul>
+  <a href="#booking" class="nav-cta">Varaa Aika</a>
+  <button class="hamburger" id="hamburger" aria-label="Valikko">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about"         onclick="closeMobile()">Meistä</a>
+  <a href="#services"      onclick="closeMobile()">Palvelut</a>
+  <a href="#gallery"       onclick="closeMobile()">Galleria</a>
+  <a href="#testimonials"  onclick="closeMobile()">Arvostelut</a>
+  <a href="#booking" class="nav-cta" onclick="closeMobile()">Varaa Aika</a>
+</div>
+
+<!-- ── HERO ────────────────────────────────────────────────── -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Turku, Finland &nbsp;·&nbsp; Est. 2010</div>
+    <h1 class="hero-title">
+      LEIKKAA<br>EROTTU<em>A.</em>
+    </h1>
+    <p class="hero-sub">
+      Perinteinen parturitaito yhdistettynä moderniin tyyliin.
+      Figaro's Parturissa jokainen leikkaus on yksityiskohtiin
+      paneutuva taidonnäyte.
+    </p>
+    <div class="hero-actions">
+      <a href="#booking" class="btn-primary">Varaa Aika</a>
+      <a href="#gallery" class="btn-ghost">Katso Töitämme</a>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-number">10+</div>
+        <div class="stat-label">Vuotta Kokemusta</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">500+</div>
+        <div class="stat-label">Tyytyväistä Asiakasta</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">4.9★</div>
+        <div class="stat-label">Asiakasarvosana</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TICKER ───────────────────────────────────────────────── -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track" id="tickerTrack">
+    <span class="ticker-item">HIUSLEIKKAUS <span class="ticker-dot">✦</span></span>
+    <span class="ticker-item">PARRANAJO <span class="ticker-dot">✦</span></span>
+    <span class="ticker-item">PARRANMUOTOILU <span class="ticker-dot">✦</span></span>
+    <span class="ticker-item">LASTEN LEIKKAUS <span class="ticker-dot">✦</span></span>
+    <span class="ticker-item">FIGARO'S PARTURI TURKU <span class="ticker-dot">✦</span></span>
+    <span class="ticker-item">HIUSLEIKKAUS <span class="ticker-dot">✦</span></span>
+    <span class="ticker-item">PARRANAJO <span class="ticker-dot">✦</span></span>
+    <span class="ticker-item">PARRANMUOTOILU <span class="ticker-dot">✦</span></span>
+    <span class="ticker-item">LASTEN LEIKKAUS <span class="ticker-dot">✦</span></span>
+    <span class="ticker-item">FIGARO'S PARTURI TURKU <span class="ticker-dot">✦</span></span>
+  </div>
+</div>
+
+<!-- ── ABOUT ────────────────────────────────────────────────── -->
+<section id="about">
+  <div class="about-img-wrap reveal">
+    <img
+      class="about-img"
+      src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=800&q=80"
+      alt="Parturi työssä"
+      loading="lazy"
+    >
+    <div class="about-red-block"></div>
+    <div class="about-years-badge">
+      <div class="badge-num">10+</div>
+      <div class="badge-label">Vuotta Alalla</div>
+    </div>
+  </div>
+
+  <div class="reveal reveal-delay-1">
+    <div class="section-label">Meistä</div>
+    <h2 class="section-title">PERINNE<br>KOHTAA<br>TYYLIN</h2>
+    <p class="about-body">
+      Figaro's Parturi on turulainen miesten parturi, jossa perinteiset
+      parturityöt yhdistyvät moderniin muotiajatteluun. Meillä jokainen
+      asiakas saa henkilökohtaista palvelua — aikaa, kärsivällisyyttä
+      ja ammattitaitoa ei tingitä.
+    </p>
+    <p class="about-body" style="margin-top:-0.5rem">
+      Löydät meidät Turusta. Tule tutustumaan —
+      ensimmäisestä käynnistä tulee tapa.
+    </p>
+
+    <div class="features-grid">
+      <div class="feature">
+        <div class="feature-ico">✂</div>
+        <div>
+          <div class="feature-name">Kokeneet Parturit</div>
+          <div class="feature-desc">Yli 10 vuoden ammattitaito</div>
+        </div>
+      </div>
+      <div class="feature">
+        <div class="feature-ico">⚡</div>
+        <div>
+          <div class="feature-name">Nopea Palvelu</div>
+          <div class="feature-desc">Ei turhaa odottelua</div>
+        </div>
+      </div>
+      <div class="feature">
+        <div class="feature-ico">🪒</div>
+        <div>
+          <div class="feature-name">Perinteinen Parranajo</div>
+          <div class="feature-desc">Suoraterä ja kuuma pyyhe</div>
+        </div>
+      </div>
+      <div class="feature">
+        <div class="feature-ico">★</div>
+        <div>
+          <div class="feature-name">Premium Tuotteet</div>
+          <div class="feature-desc">Laadukkaat hoitotuotteet</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SERVICES ─────────────────────────────────────────────── -->
+<section id="services">
+  <div class="services-top reveal">
+    <div>
+      <div class="section-label">Palvelut &amp; Hinnat</div>
+      <h2 class="section-title">MITÄ TEEMME</h2>
+    </div>
+    <a href="#booking" class="btn-primary">Varaa Aika</a>
+  </div>
+
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <span class="svc-icon">✂</span>
+      <div class="svc-name">Hiusleikkaus</div>
+      <div class="svc-desc">Klassinen tai moderni leikkaus sinun toiveidesi mukaan. Sisältää konsultaation, pesun ja viimeistelyn.</div>
+      <div class="svc-price">alkaen 25 €</div>
+      <div class="svc-duration">⏱ 30–45 min</div>
+    </div>
+    <div class="service-card reveal reveal-delay-1">
+      <span class="svc-icon">🪒</span>
+      <div class="svc-name">Parranmuotoilu</div>
+      <div class="svc-desc">Parran siistiminen, muotoilu ja viimeistely ammattilaistuotteilla. Terävä lopputulos takuu.</div>
+      <div class="svc-price">alkaen 20 €</div>
+      <div class="svc-duration">⏱ 20–30 min</div>
+    </div>
+    <div class="service-card reveal reveal-delay-2">
+      <span class="svc-icon">⭐</span>
+      <div class="svc-name">Täyspalvelu</div>
+      <div class="svc-desc">Hiusleikkaus + parranmuotoilu yhdistettynä. Täydellinen ratkaisu uudistumiseen.</div>
+      <div class="svc-price">alkaen 40 €</div>
+      <div class="svc-duration">⏱ 60–75 min</div>
+    </div>
+    <div class="service-card reveal">
+      <span class="svc-icon">🔥</span>
+      <div class="svc-name">Suoraterä Parranajo</div>
+      <div class="svc-desc">Perinteinen parturikokemus — suoraterä, kuuma höyrypyyhe ja täydellinen rentoutuminen.</div>
+      <div class="svc-price">alkaen 35 €</div>
+      <div class="svc-duration">⏱ 40–50 min</div>
+    </div>
+    <div class="service-card reveal reveal-delay-1">
+      <span class="svc-icon">👦</span>
+      <div class="svc-name">Lasten Leikkaus</div>
+      <div class="svc-desc">Rauhallinen, ammattitaitoinen leikkaus alle 12-vuotiaille. Lapsiystävällinen ympäristö.</div>
+      <div class="svc-price">alkaen 18 €</div>
+      <div class="svc-duration">⏱ 20–30 min</div>
+    </div>
+    <div class="service-card reveal reveal-delay-2">
+      <span class="svc-icon">💈</span>
+      <div class="svc-name">Student Deal</div>
+      <div class="svc-desc">Opiskelija-alennus hiusleikkauksesta voimassa opiskelukortin näyttämällä. Nopea ja tyylikäs.</div>
+      <div class="svc-price">alkaen 20 €</div>
+      <div class="svc-duration">⏱ 30 min</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── GALLERY ───────────────────────────────────────────────── -->
+<section id="gallery">
+  <div class="gallery-head reveal">
+    <div class="section-label">Galleria</div>
+    <h2 class="section-title">TÖITÄMME</h2>
+  </div>
+
+  <div class="gallery-grid">
+    <div class="gallery-item reveal">
+      <img src="figaros.jpeg" alt="Parturin työ 1" loading="lazy">
+      <div class="gallery-overlay">+</div>
+    </div>
+    <div class="gallery-item reveal reveal-delay-1">
+      <img src="figaors 2.jpeg" alt="Parturin työ 2" loading="lazy">
+      <div class="gallery-overlay">+</div>
+    </div>
+    <div class="gallery-item reveal reveal-delay-2">
+      <img src="figaors 3.jpeg" alt="Parturin työ 3" loading="lazy">
+      <div class="gallery-overlay">+</div>
+    </div>
+    <div class="gallery-item reveal">
+      <img src="figaors 4.jpeg" alt="Parturin työ 4" loading="lazy">
+      <div class="gallery-overlay">+</div>
+    </div>
+    <div class="gallery-item reveal reveal-delay-1">
+      <img src="figaors 5.jpeg" alt="Parturin työ 5" loading="lazy">
+      <div class="gallery-overlay">+</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── BOOKING ───────────────────────────────────────────────── -->
+<section id="booking">
+  <div class="booking-wrap">
+    <!-- Left: info + hours -->
+    <div class="reveal">
+      <div class="section-label">Varaa Aika</div>
+      <h2 class="section-title">OTA<br>YHTEYTTÄ</h2>
+      <p class="booking-body">
+        Varaa aikasi suoraan lomakkeen kautta tai seuraa meitä Facebookissa
+        ajankohtaisten tarjousten ja kuvien vuoksi. Vastaamme
+        yhteydenottoihin mahdollisimman pian.
+      </p>
+
+      <div class="hours-label">Aukioloajat</div>
+      <div class="hours-row"><span class="hours-day">Maanantai</span><span class="hours-time">10:00–18:00</span></div>
+      <div class="hours-row"><span class="hours-day">Tiistai</span><span class="hours-time">10:00–18:00</span></div>
+      <div class="hours-row"><span class="hours-day">Keskiviikko</span><span class="hours-time">10:00–18:00</span></div>
+      <div class="hours-row"><span class="hours-day">Torstai</span><span class="hours-time">10:00–18:00</span></div>
+      <div class="hours-row"><span class="hours-day">Perjantai</span><span class="hours-time">10:00–18:00</span></div>
+      <div class="hours-row"><span class="hours-day">Lauantai</span><span class="hours-time">10:00–15:00</span></div>
+      <div class="hours-row"><span class="hours-day">Sunnuntai</span><span class="hours-closed">Suljettu</span></div>
+
+      <div class="booking-contact">
+        <p>📍 Turku, Finland</p>
+        <p>📘 <a href="https://www.facebook.com/figarosparturi/" target="_blank" rel="noopener">facebook.com/figarosparturi</a></p>
+      </div>
+    </div>
+
+    <!-- Right: booking form -->
+    <div class="form-box reveal reveal-delay-1">
+      <div class="form-title">Varauskaavake</div>
+
+      <form id="bookingForm" novalidate>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="fname">Etunimi</label>
+            <input class="form-input" type="text" id="fname" placeholder="Matti" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="lname">Sukunimi</label>
+            <input class="form-input" type="text" id="lname" placeholder="Virtanen" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="phone">Puhelinnumero</label>
+          <input class="form-input" type="tel" id="phone" placeholder="+358 40 123 4567" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="service">Palvelu</label>
+          <select class="form-select" id="service" required>
+            <option value="" disabled selected>Valitse palvelu</option>
+            <option value="hiusleikkaus">Hiusleikkaus — alkaen 25 €</option>
+            <option value="parranmuotoilu">Parranmuotoilu — alkaen 20 €</option>
+            <option value="tayspaketti">Täyspalvelu — alkaen 40 €</option>
+            <option value="suoratera">Suoraterä Parranajo — alkaen 35 €</option>
+            <option value="lapset">Lasten Leikkaus — alkaen 18 €</option>
+            <option value="student">Student Deal — alkaen 20 €</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="bdate">Päivämäärä</label>
+            <input class="form-input" type="date" id="bdate" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="btime">Kellonaika</label>
+            <select class="form-select" id="btime" required>
+              <option value="" disabled selected>Valitse aika</option>
+              <option>10:00</option><option>10:30</option>
+              <option>11:00</option><option>11:30</option>
+              <option>12:00</option><option>12:30</option>
+              <option>13:00</option><option>13:30</option>
+              <option>14:00</option><option>14:30</option>
+              <option>15:00</option><option>15:30</option>
+              <option>16:00</option><option>16:30</option>
+              <option>17:00</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="notes">Lisätietoja <span style="color:var(--gray);font-weight:400">(valinnainen)</span></label>
+          <textarea class="form-textarea" id="notes" placeholder="Erityistoiveet tai lisätietoja..."></textarea>
+        </div>
+
+        <button type="submit" class="form-submit">Lähetä Varaus &rarr;</button>
+      </form>
+
+      <div class="form-success" id="formSuccess">
+        <div class="form-success-check">✓</div>
+        <div class="form-success-title">Varaus Vastaanotettu!</div>
+        <div class="form-success-sub">Otamme sinuun yhteyttä pian vahvistaaksemme ajan.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TESTIMONIALS ──────────────────────────────────────────── -->
+<section id="testimonials">
+  <div class="testimonials-head reveal">
+    <div class="section-label">Asiakasarvostelut</div>
+    <h2 class="section-title">MITÄ ASIAKKAAT SANOVAT</h2>
+  </div>
+
+  <div class="testi-grid">
+    <div class="testi-card reveal">
+      <div class="testi-quote-mark">"</div>
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"Paras parturi Turussa! Olen käynyt Figarossa vuosia — joka kerta lopputulos on täydellinen. Ammattitaito ja palvelu ovat huippuluokkaa."</p>
+      <div class="testi-author">
+        <div class="author-av">MK</div>
+        <div>
+          <div class="author-name">Mikko K.</div>
+          <div class="author-meta">Asiakas · Facebook</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testi-card reveal reveal-delay-1">
+      <div class="testi-quote-mark">"</div>
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"Tulin ensimmäistä kertaa epäröiden, mutta parturit kuuntelivat tarkasti mitä halusin. Lopputulos ylitti odotukset — tulen taatusti uudelleen."</p>
+      <div class="testi-author">
+        <div class="author-av">JP</div>
+        <div>
+          <div class="author-name">Jani P.</div>
+          <div class="author-meta">Asiakas · Facebook</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testi-card reveal reveal-delay-2">
+      <div class="testi-quote-mark">"</div>
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"Viihtyisä tunnelma ja huippuosaaminen. Parranmuotoilu oli täsmälleen sitä mitä pyysin. Suosittelen kaikille!"</p>
+      <div class="testi-author">
+        <div class="author-av">TL</div>
+        <div>
+          <div class="author-name">Tommi L.</div>
+          <div class="author-meta">Asiakas · Facebook</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="testi-cta reveal">
+    <a href="https://www.facebook.com/figarosparturi/" target="_blank" rel="noopener" class="btn-ghost">
+      Lue Lisää Arvosteluja Facebookissa &rarr;
+    </a>
+  </div>
+</section>
+
+<!-- ── CTA BANNER ───────────────────────────────────────────── -->
+<div class="cta-banner reveal">
+  <h2>VALMIS UUTEEN TYYLIIN?</h2>
+  <p>Varaa aika tänään — ammattitaitoiset parturityöt odottavat sinua Turussa.</p>
+  <a href="#booking" class="btn-white">Varaa Nyt</a>
+</div>
+
+<!-- ── FOOTER ───────────────────────────────────────────────── -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo">FIGARO<span>'S</span></div>
+      <p class="footer-tagline">Perinteinen parturitaito modernilla otteella. Turusta, turulle — ja kauemmaskin.</p>
+      <div class="social-links">
+        <a href="https://www.facebook.com/figarosparturi/" target="_blank" rel="noopener" class="social-link" aria-label="Facebook">f</a>
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <h4>Navigaatio</h4>
+      <ul>
+        <li><a href="#about">Meistä</a></li>
+        <li><a href="#services">Palvelut</a></li>
+        <li><a href="#gallery">Galleria</a></li>
+        <li><a href="#testimonials">Arvostelut</a></li>
+        <li><a href="#booking">Varaa Aika</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Palvelut</h4>
+      <ul>
+        <li><a href="#services">Hiusleikkaus</a></li>
+        <li><a href="#services">Parranmuotoilu</a></li>
+        <li><a href="#services">Täyspalvelu</a></li>
+        <li><a href="#services">Suoraterä Parranajo</a></li>
+        <li><a href="#services">Lasten Leikkaus</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Yhteystiedot</h4>
+      <p>📍 Turku, Finland</p>
+      <p>📘 <a href="https://www.facebook.com/figarosparturi/" target="_blank" rel="noopener">Facebook</a></p>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2025 Figaro's Parturi. Kaikki oikeudet pidätetään.</p>
+    <p class="footer-credit">Design &amp; Development by <a href="#">AA Studio</a></p>
+  </div>
+</footer>
+
+<script>
+  // ── Nav scroll effect
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 60);
+  }, { passive: true });
+
+  // ── Mobile menu
+  const hamburger   = document.getElementById('hamburger');
+  const mobileMenu  = document.getElementById('mobileMenu');
+
+  hamburger.addEventListener('click', () => {
+    const open = mobileMenu.classList.toggle('open');
+    hamburger.classList.toggle('open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+
+  function closeMobile() {
+    mobileMenu.classList.remove('open');
+    hamburger.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // Close on outside click
+  mobileMenu.addEventListener('click', (e) => {
+    if (e.target === mobileMenu) closeMobile();
+  });
+
+  // ── Scroll reveal (IntersectionObserver)
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => io.observe(el));
+
+  // ── Booking form
+  const bookingForm  = document.getElementById('bookingForm');
+  const formSuccess  = document.getElementById('formSuccess');
+
+  bookingForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    // Basic validation
+    const required = bookingForm.querySelectorAll('[required]');
+    let valid = true;
+    required.forEach(field => {
+      if (!field.value.trim()) {
+        valid = false;
+        field.style.borderColor = 'var(--red)';
+        field.addEventListener('input', () => field.style.borderColor = '', { once: true });
+      }
+    });
+    if (!valid) return;
+    bookingForm.style.display = 'none';
+    formSuccess.style.display = 'block';
+  });
+
+  // ── Set min date to today
+  const dateInput = document.getElementById('bdate');
+  if (dateInput) {
+    dateInput.min = new Date().toISOString().split('T')[0];
+  }
+</script>
+</body>
+</html>
